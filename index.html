@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Sayang!</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffd1dc;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: background-color 2s;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ff4081;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #e91e63;
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .cake-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+        }
+
+        .cake {
+            position: absolute;
+            width: 200px;
+            height: 120px;
+            background-color: #f8c5ad;
+            border-radius: 10px 10px 0 0;
+            bottom: 50px;
+            left: 50px;
+        }
+
+        .layer {
+            position: absolute;
+            width: 220px;
+            height: 60px;
+            background-color: #f19cbb;
+            border-radius: 10px 10px 0 0;
+            bottom: 110px;
+            left: 40px;
+        }
+
+        .frosting {
+            position: absolute;
+            width: 240px;
+            height: 40px;
+            background-color: #ff80ab;
+            border-radius: 20px 20px 0 0;
+            bottom: 170px;
+            left: 30px;
+        }
+
+        .candle {
+            position: absolute;
+            width: 10px;
+            height: 50px;
+            background-color: #fef8c9;
+            bottom: 210px;
+            left: 145px;
+        }
+
+        .flame {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background-color: #ffeb3b;
+            border-radius: 50% 50% 20% 20%;
+            bottom: 260px;
+            left: 140px;
+            box-shadow: 0 0 20px 5px rgba(255, 165, 0, 0.8);
+            animation: flicker 0.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0.3; }
+        }
+
+        .message {
+            font-size: 1.8rem;
+            color: #e91e63;
+            margin-top: 30px;
+            opacity: 0;
+            transition: opacity 2s;
+        }
+
+        .visible {
+            opacity: 1;
+        }
+
+        .heart {
+            color: red;
+            font-size: 2rem;
+        }
+
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .music-button {
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .music-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: scale(1.1);
+        }
+
+        .music-icon {
+            font-size: 24px;
+            color: #ff4081;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="welcomeScreen">
+        <h1>Selamat Ulang Tahun, Sayang! ❤️</h1>
+        <p>Hari ini adalah hari istimewa karena orang yang paling istimewa dalam hidup aku bertambah usia. Aku ingin memberikan sesuatu yang spesial untukmu.</p>
+        <button id="surpriseButton">Lihat Kejutanmu!</button>
+        
+    </div>
+
+    <div class="container hidden" id="cakeScreen">
+        <div class="cake-container">
+            <div class="cake"></div>
+            <div class="layer"></div>
+            <div class="frosting"></div>
+            <div class="candle"></div>
+            <div class="flame" id="flame"></div>
+        </div>
+        <p>Make a wish dan tiup lilinnya!</p>
+        <button id="blowButton">Tiup Lilin</button>
+        <div class="message" id="specialMessage">
+            Terima kasih telah menjadi bagian terindah dalam hidup aku.<br>
+            Semoga di tahun baru kamu ini kamu dipenuhi kebahagiaan, kesehatan, dan semua impian kamu menjadi kenyataan!<br>
+            lovee youu sayaangg! <span class="heart">♥</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const cakeScreen = document.getElementById('cakeScreen');
+            const surpriseButton = document.getElementById('surpriseButton');
+            const blowButton = document.getElementById('blowButton');
+            const flame = document.getElementById('flame');
+            const specialMessage = document.getElementById('specialMessage');
+            let isPlaying = false;
+            
+            // Fungsi untuk memainkan atau menjeda musik
+           
+            
+            // Event listener untuk tombol musik
+           
+            
+            // Ketika tombol kejutan diklik
+            surpriseButton.addEventListener('click', function() {
+                welcomeScreen.classList.add('hidden');
+                cakeScreen.classList.remove('hidden');
+                createConfetti();
+                
+                // Mulai musik kalau belum berjalan
+                
+            });
+            
+            // Ketika tombol tiup lilin diklik
+            blowButton.addEventListener('click', function() {
+                flame.style.opacity = '0';
+                blowButton.classList.add('hidden');
+                specialMessage.classList.add('visible');
+                document.body.style.backgroundColor = '#ffebee';
+                createMoreConfetti();
+                
+                // Ganti lagu untuk momen spesial - ini opsional
+                
+            });
+            
+            // Fungsi untuk membuat konfeti
+            function createConfetti() {
+                const colors = ['#ff4081', '#3f51b5', '#ffeb3b', '#4caf50', '#ff9800'];
+                
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        const confetti = document.createElement('div');
+                        confetti.classList.add('confetti');
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.left = Math.random() * 100 + 'vw';
+                        confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                        document.body.appendChild(confetti);
+                        
+                        // Hapus konfeti setelah animasi selesai
+                        setTimeout(() => {
+                            confetti.remove();
+                        }, 5000);
+                    }, Math.random() * 1000);
+                }
+            }
+            
+            function createMoreConfetti() {
+                const colors = ['#ff4081', '#3f51b5', '#ffeb3b', '#4caf50', '#ff9800'];
+                
+                for (let i = 0; i < 100; i++) {
+                    setTimeout(() => {
+                        const confetti = document.createElement('div');
+                        confetti.classList.add('confetti');
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.left = Math.random() * 100 + 'vw';
+                        confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                        document.body.appendChild(confetti);
+                        
+                        // Hapus konfeti setelah animasi selesai
+                        setTimeout(() => {
+                            confetti.remove();
+                        }, 5000);
+                    }, Math.random() * 2000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
